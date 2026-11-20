@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ApexStore - Modern Mini E-Commerce</title>
+  <title>Ecommerce Store - Modern Fashion & Lifestyle</title>
   <!-- Bootstrap 5 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <!-- Google Fonts Inter -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Google Fonts Inter & Outfit -->
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <!-- Custom CSS -->
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -19,8 +19,8 @@
   <nav class="navbar navbar-expand-lg sticky-top">
     <div class="container">
       <a class="navbar-brand" href="index.html">
-        <i class="fa-solid fa-bag-shopping text-primary"></i>
-        <span>ApexStore</span>
+        <i class="fa-solid fa-shirt text-primary"></i>
+        <span>Ecommerce Store</span>
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
         <span class="navbar-toggler-icon"></span>
@@ -32,7 +32,7 @@
             <a class="nav-link active" href="index.html">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="products.html">Products</a>
+            <a class="nav-link" href="products.html">Shop</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="products.html" id="nav-categories-link">Categories</a>
@@ -48,70 +48,54 @@
     </div>
   </nav>
 
-  <!-- Hero Section -->
-  <section class="hero-section">
-    <div class="container position-relative" style="z-index: 2;">
-      <div class="row align-items-center py-4">
-        <div class="col-lg-7">
-          <span class="badge bg-primary px-3 py-2 rounded-pill mb-3 text-uppercase fw-semibold" style="letter-spacing: 0.05em;">Premium Shopping Experience</span>
-          <h1 class="display-4 fw-bold mb-3">Discover Quality Products Curated For You</h1>
-          <p class="lead text-light mb-4 opacity-90" style="max-width: 580px;">
-            Shop top-tier electronics, fashion, lifestyle, and home essentials with verified stock, real-time inventory tracking, and seamless instant ordering.
-          </p>
-          <div class="d-flex flex-wrap gap-3">
-            <a href="products.html" class="btn btn-primary btn-lg shadow">
-              <i class="fa-solid fa-bag-shopping me-2"></i> Shop Now
-            </a>
-            <a href="#categories-section" class="btn btn-outline-light btn-lg">
-              <i class="fa-solid fa-layer-group me-2"></i> Explore Categories
-            </a>
-          </div>
-        </div>
-        <div class="col-lg-5 d-none d-lg-block text-center">
-          <div class="p-4 rounded-4" style="background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.1);">
-            <i class="fa-solid fa-shield-heart fa-4x text-warning mb-3"></i>
-            <h4 class="text-white fw-bold mb-2">Verified Real-Time Stock</h4>
-            <p class="text-light small mb-0 opacity-75">Transactions use atomic database locks to ensure you never face out-of-stock cancellations after purchase.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Features Strip -->
-  <section class="py-4 bg-white border-bottom">
+  <!-- Hero Section Matching Image Reference -->
+  <section class="hero-wrapper">
     <div class="container">
-      <div class="row g-4 text-center">
-        <div class="col-md-4">
-          <div class="d-flex align-items-center justify-content-center gap-3">
-            <div class="p-3 bg-light rounded-circle text-primary">
-              <i class="fa-solid fa-truck-fast fa-2x"></i>
-            </div>
-            <div class="text-start">
-              <h6 class="fw-bold mb-0">Fast Shipping</h6>
-              <small class="text-muted">Swift and reliable processing</small>
+      <div class="hero-banner">
+        <div class="row align-items-center g-5">
+          <div class="col-lg-7">
+            <span class="hero-badge-offer">
+              <i class="fa-solid fa-tag me-1"></i> Exclusive Offer • 20% off This Week
+            </span>
+            <h1 class="hero-title">
+              Stylish<br>Female Clothes
+            </h1>
+            <p class="hero-subtitle">
+              Made from soft, durable, organic premium cotton. Elevate your wardrobe with verified in-stock seasonal essentials.
+            </p>
+
+            <!-- Pill Search Capsule -->
+            <form action="products.html" method="GET" class="hero-search-capsule" onsubmit="handleHeroSearch(event)">
+              <input type="text" id="hero-search-input" placeholder="Search clothes, accessories..." required>
+              <button type="submit">Shop Now</button>
+            </form>
+
+            <!-- Social Proof Rating Badge -->
+            <div class="hero-customers-badge">
+              <div class="avatar-stack">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" alt="Customer 1">
+                <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100&auto=format&fit=crop&q=80" alt="Customer 2">
+                <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=100&auto=format&fit=crop&q=80" alt="Customer 3">
+              </div>
+              <div>
+                <div class="fw-bold small text-white">10k+ Happy Customers</div>
+                <div class="small text-warning">
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <span class="text-white-50 ms-1">(4.9/5)</span>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col-md-4">
-          <div class="d-flex align-items-center justify-content-center gap-3">
-            <div class="p-3 bg-light rounded-circle text-success">
-              <i class="fa-solid fa-lock fa-2x"></i>
-            </div>
-            <div class="text-start">
-              <h6 class="fw-bold mb-0">Secure JWT Auth</h6>
-              <small class="text-muted">Role-based security & encryption</small>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="d-flex align-items-center justify-content-center gap-3">
-            <div class="p-3 bg-light rounded-circle text-warning">
-              <i class="fa-solid fa-rotate-left fa-2x"></i>
-            </div>
-            <div class="text-start">
-              <h6 class="fw-bold mb-0">Live Stock Protection</h6>
-              <small class="text-muted">Atomic server concurrency checks</small>
+
+          <!-- Hero Model Image Frame -->
+          <div class="col-lg-5 text-center">
+            <div class="hero-visual-frame">
+              <div class="hero-circle-bg"></div>
+              <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&auto=format&fit=crop&q=80" alt="Stylish Female Clothes" class="hero-model-img">
             </div>
           </div>
         </div>
@@ -119,13 +103,61 @@
     </div>
   </section>
 
-  <!-- Categories Section -->
-  <section id="categories-section" class="py-5">
+  <!-- Premium Shades / Collections Strip -->
+  <section class="collections-strip">
+    <div class="container">
+      <div class="text-center mb-4">
+        <span class="text-uppercase fw-bold text-primary small" style="letter-spacing: 0.1em;">Curated Selections</span>
+        <h3 class="fw-bold text-dark mt-1">Premium Shades & Styles</h3>
+      </div>
+      <div class="row g-3">
+        <div class="col-6 col-lg-3">
+          <a href="products.html" class="collection-card">
+            <img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=150&auto=format&fit=crop&q=80" class="collection-card-img" alt="Women Edition">
+            <div>
+              <div class="fw-bold">Women Edition</div>
+              <small class="text-muted">Explore Collection &rarr;</small>
+            </div>
+          </a>
+        </div>
+        <div class="col-6 col-lg-3">
+          <a href="products.html" class="collection-card">
+            <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?w=150&auto=format&fit=crop&q=80" class="collection-card-img" alt="Urban Fashion">
+            <div>
+              <div class="fw-bold">Urban Fashion</div>
+              <small class="text-muted">Explore Collection &rarr;</small>
+            </div>
+          </a>
+        </div>
+        <div class="col-6 col-lg-3">
+          <a href="products.html" class="collection-card">
+            <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=150&auto=format&fit=crop&q=80" class="collection-card-img" alt="Casual Men">
+            <div>
+              <div class="fw-bold">Men's Casual</div>
+              <small class="text-muted">Explore Collection &rarr;</small>
+            </div>
+          </a>
+        </div>
+        <div class="col-6 col-lg-3">
+          <a href="products.html" class="collection-card">
+            <img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=150&auto=format&fit=crop&q=80" class="collection-card-img" alt="Modern Minimal">
+            <div>
+              <div class="fw-bold">Modern Minimal</div>
+              <small class="text-muted">Explore Collection &rarr;</small>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories Section with Icon Pills -->
+  <section id="categories-section" class="py-4">
     <div class="container">
       <div class="d-flex justify-content-between align-items-end mb-4">
         <div>
-          <h2 class="fw-bold mb-1">Browse by Category</h2>
-          <p class="text-muted mb-0">Find exactly what you need sorted into clean collections</p>
+          <span class="text-uppercase fw-bold text-primary small" style="letter-spacing: 0.1em;">Categories</span>
+          <h3 class="fw-bold text-dark mt-1 mb-0">Browse by Department</h3>
         </div>
         <a href="products.html" class="text-primary fw-semibold text-decoration-none">
           All Products <i class="fa-solid fa-arrow-right ms-1"></i>
@@ -139,12 +171,12 @@
   </section>
 
   <!-- Featured Products Section -->
-  <section class="py-5 bg-light">
+  <section class="py-5" style="background-color: #fffaf9;">
     <div class="container">
       <div class="d-flex justify-content-between align-items-end mb-4">
         <div>
-          <h2 class="fw-bold mb-1">Featured Products</h2>
-          <p class="text-muted mb-0">High-demand items currently available in inventory</p>
+          <span class="text-uppercase fw-bold text-primary small" style="letter-spacing: 0.1em;">Trending Now</span>
+          <h3 class="fw-bold text-dark mt-1 mb-0">Featured Products</h3>
         </div>
         <a href="products.html" class="btn btn-outline-primary btn-sm">
           View All Catalog <i class="fa-solid fa-chevron-right ms-1"></i>
@@ -153,7 +185,6 @@
 
       <!-- Products Grid -->
       <div id="featured-products-grid" class="row g-4">
-        <!-- Rendered via JS -->
         <div class="col-12 text-center py-5">
           <div class="spinner-border text-primary" role="status"></div>
         </div>
@@ -164,17 +195,17 @@
   <!-- Quick Buy Modal -->
   <div class="modal fade" id="quickBuyModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content border-0 shadow-lg">
+      <div class="modal-content border-0 shadow-lg" style="border-radius: 24px;">
         <div class="modal-header border-bottom-0 pb-0">
           <h5 class="modal-title fw-bold">Instant Checkout</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body">
-          <div class="d-flex align-items-center gap-3 mb-3 p-3 bg-light rounded-3">
-            <img id="modal-product-img" src="" alt="Product" style="width: 70px; height: 70px; object-fit: cover; border-radius: 8px;">
+          <div class="d-flex align-items-center gap-3 mb-3 p-3 bg-light rounded-4">
+            <img id="modal-product-img" src="" alt="Product" style="width: 70px; height: 70px; object-fit: cover; border-radius: 12px;">
             <div>
               <h6 class="fw-bold mb-1" id="modal-product-name">Product Name</h6>
-              <div class="text-primary fw-bold" id="modal-product-price">₹0.00</div>
+              <div class="text-primary fw-bold fs-5" id="modal-product-price">₹0.00</div>
               <small class="text-muted" id="modal-product-stock">Stock: 0</small>
             </div>
           </div>
@@ -211,7 +242,7 @@
   <!-- Order Confirmation Modal -->
   <div class="modal fade" id="orderSuccessModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content border-0 shadow-lg text-center p-4">
+      <div class="modal-content border-0 shadow-lg text-center p-4" style="border-radius: 24px;">
         <div class="mb-3">
           <div class="d-inline-flex p-3 rounded-circle bg-success bg-opacity-10 text-success">
             <i class="fa-solid fa-circle-check fa-3x"></i>
@@ -255,11 +286,11 @@
   <footer>
     <div class="container text-center">
       <div class="mb-3">
-        <span class="fw-bold fs-5 text-white">ApexStore</span>
+        <span class="fw-bold fs-5 text-white">Ecommerce Store</span>
         <p class="small text-muted mb-0">Mini E-Commerce Management System built with Django, DRF, Simple JWT & Bootstrap 5</p>
       </div>
       <hr class="border-secondary opacity-25">
-      <small>&copy; 2026 ApexStore System. All rights reserved.</small>
+      <small>&copy; 2026 Ecommerce Store System. All rights reserved.</small>
     </div>
   </footer>
 
@@ -279,6 +310,12 @@
       loadFeaturedProducts();
     });
 
+    function handleHeroSearch(e) {
+      e.preventDefault();
+      const val = document.getElementById('hero-search-input').value.trim();
+      window.location.href = `products.html?search=${encodeURIComponent(val)}`;
+    }
+
     async function loadCategories() {
       const container = document.getElementById('home-categories-list');
       try {
@@ -289,13 +326,20 @@
           return;
         }
 
+        const icons = {
+          'Electronics': 'fa-laptop',
+          'Fashion & Apparel': 'fa-shirt',
+          'Home & Living': 'fa-couch',
+          'Books & Stationery': 'fa-book-open'
+        };
+
         container.innerHTML = `
           <a href="products.html" class="category-pill active">
-            <i class="fa-solid fa-border-all"></i> All Categories
+            <i class="fa-solid fa-border-all"></i> All Products
           </a>
         ` + categories.map(c => `
           <a href="products.html?category=${c.id}" class="category-pill">
-            <i class="fa-solid fa-tag"></i> ${c.name}
+            <i class="fa-solid ${icons[c.name] || 'fa-tag'}"></i> ${c.name}
             <span class="badge bg-light text-dark rounded-pill ms-1">${c.products_count}</span>
           </a>
         `).join('');
@@ -333,8 +377,8 @@
                   <span class="product-badge-category">${p.category ? p.category.name : 'General'}</span>
                   <span class="product-badge-stock">
                     ${isOutOfStock 
-                      ? '<span class="badge bg-danger">Out of Stock</span>' 
-                      : `<span class="badge bg-success">In Stock: ${p.stock}</span>`}
+                      ? '<span class="badge bg-danger rounded-pill">Out of Stock</span>' 
+                      : `<span class="badge bg-success rounded-pill">In Stock: ${p.stock}</span>`}
                   </span>
                   <img src="${imgUrl}" alt="${p.name}" onerror="this.src='${API_CONFIG.MEDIA_FALLBACK}'">
                 </div>
@@ -423,7 +467,6 @@
 
         quickBuyModalObj.hide();
 
-        // Populate success modal
         const order = res.data.order;
         document.getElementById('success-order-id').textContent = `#${order.id}`;
         document.getElementById('success-product-name').textContent = activeModalProduct.name;
@@ -434,7 +477,6 @@
         orderSuccessModalObj.show();
         showToast("Order placed successfully!", "success");
 
-        // Reload featured products to reflect decremented stock
         loadFeaturedProducts();
       } catch (err) {
         showToast(err.message, "error");

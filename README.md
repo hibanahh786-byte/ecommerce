@@ -1,4 +1,4 @@
-# ApexStore - Mini E-Commerce Management System
+# Ecommerce Store - Mini E-Commerce Management System
 
 A complete, modern, responsive full-stack Mini E-Commerce Web Application built with **Django**, **Django REST Framework (DRF)**, **Simple JWT**, **MySQL**, and a responsive **Bootstrap 5** frontend.
 

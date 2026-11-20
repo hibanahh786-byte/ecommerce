@@ -10,7 +10,7 @@ const AdminLayout = {
     sidebar.innerHTML = `
       <a href="dashboard.html" class="admin-sidebar-brand">
         <i class="fa-solid fa-store text-primary"></i>
-        <span>ApexStore <span class="badge bg-danger small" style="font-size: 0.65rem;">ADMIN</span></span>
+        <span>Ecommerce Store <span class="badge bg-danger small" style="font-size: 0.65rem;">ADMIN</span></span>
       </a>
 
       <ul class="admin-nav-list">
