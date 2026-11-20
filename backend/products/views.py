@@ -40,3 +40,8 @@ class ProductDetailView(generics.RetrieveUpdateDestroyAPIView):
         if self.request.method == 'GET':
             return [permissions.AllowAny()]
         return [IsAdminRole()]
+
+    def perform_destroy(self, instance):
+        # Detach from order items safely preserving historical purchase data
+        instance.order_items.all().update(product=None)
+        instance.delete()

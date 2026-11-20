@@ -11,11 +11,24 @@ class OrderItemSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = OrderItem
-        fields = ('id', 'product', 'quantity', 'price', 'line_total')
-        read_only_fields = ('id', 'product', 'price', 'line_total')
+        fields = ('id', 'product', 'product_name', 'quantity', 'price', 'line_total')
+        read_only_fields = ('id', 'product', 'product_name', 'price', 'line_total')
 
     def get_line_total(self, obj):
         return round(float(obj.price * obj.quantity), 2)
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        if not data.get('product'):
+            data['product'] = {
+                'id': None,
+                'name': instance.product_name or 'Archived Product',
+                'price': str(instance.price),
+                'stock': 0,
+                'image_url': None,
+                'category': {'name': 'Archived'}
+            }
+        return data
 
 class OrderSerializer(serializers.ModelSerializer):
     items = OrderItemSerializer(many=True, read_only=True)
@@ -39,7 +52,6 @@ class OrderItemInputSerializer(serializers.Serializer):
     quantity = serializers.IntegerField(min_value=1)
 
 class OrderCreateSerializer(serializers.Serializer):
-    # Allows either an array of items OR a single product_id + quantity
     items = OrderItemInputSerializer(many=True, required=False)
     product_id = serializers.IntegerField(min_value=1, required=False)
     quantity = serializers.IntegerField(min_value=1, required=False, default=1)
@@ -72,7 +84,6 @@ class OrderCreateSerializer(serializers.Serializer):
                 product_id = item_spec['product_id']
                 requested_qty = item_spec['quantity']
 
-                # Use select_for_update to lock the row and prevent race conditions / overselling
                 try:
                     product = Product.objects.select_for_update().get(id=product_id)
                 except Product.DoesNotExist:
@@ -80,18 +91,15 @@ class OrderCreateSerializer(serializers.Serializer):
                         f"Product with ID {product_id} does not exist."
                     )
 
-                # Stock validation
                 if product.stock < requested_qty:
                     raise serializers.ValidationError(
                         f"Insufficient stock available for '{product.name}'. Available: {product.stock}, Requested: {requested_qty}."
                     )
 
-                # Server-side calculation using price in database
                 unit_price = product.price
                 item_total = unit_price * requested_qty
                 calculated_total += item_total
 
-                # Decrement stock
                 product.stock -= requested_qty
                 product.save(update_fields=['stock'])
 
@@ -101,18 +109,17 @@ class OrderCreateSerializer(serializers.Serializer):
                     'price': unit_price
                 })
 
-            # Create Order
             order = Order.objects.create(
                 user=user,
                 total_amount=calculated_total,
                 status='Placed'
             )
 
-            # Create OrderItems
             for item_spec in order_items_to_create:
                 OrderItem.objects.create(
                     order=order,
                     product=item_spec['product'],
+                    product_name=item_spec['product'].name,
                     quantity=item_spec['quantity'],
                     price=item_spec['price']
                 )

@@ -148,13 +148,13 @@
         <div class="modal-body">
           <p>Are you sure you want to delete <strong id="delete-prod-name"></strong>?</p>
           <div class="alert alert-warning py-2 small mb-0">
-            This action removes the product from the catalog.
+            This action removes the product from the catalog. Historical order receipts will safely preserve the purchased item name and price.
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
           <button type="button" class="btn btn-danger px-4" id="confirm-delete-prod-btn" onclick="executeDeleteProduct()">
-            Delete
+            Delete Product
           </button>
         </div>
       </div>
@@ -169,6 +169,7 @@
     let productModalObj = null;
     let deleteProductModalObj = null;
     let productToDeleteId = null;
+    let currentProductsList = [];
     let categoriesList = [];
     let searchTimeout = null;
 
@@ -215,14 +216,14 @@
 
       try {
         const res = await apiRequest(endpoint);
-        const products = res.data || [];
+        currentProductsList = res.data || [];
 
-        if (products.length === 0) {
+        if (currentProductsList.length === 0) {
           tbody.innerHTML = '<tr><td colspan="7" class="text-center py-4 text-muted">No products found.</td></tr>';
           return;
         }
 
-        tbody.innerHTML = products.map(p => {
+        tbody.innerHTML = currentProductsList.map(p => {
           const imgUrl = p.image_url || API_CONFIG.MEDIA_FALLBACK;
           const isOutOfStock = p.stock <= 0;
           const stockBadge = isOutOfStock
@@ -245,10 +246,10 @@
               <td>${stockBadge}</td>
               <td>${formatDate(p.created_at)}</td>
               <td class="text-end">
-                <button class="btn btn-sm btn-outline-primary me-1" onclick='openEditProductModal(${JSON.stringify(p)})'>
+                <button class="btn btn-sm btn-outline-primary me-1" onclick="openEditProductModal(${p.id})">
                   <i class="fa-regular fa-pen-to-square"></i>
                 </button>
-                <button class="btn btn-sm btn-outline-danger" onclick='promptDeleteProduct(${p.id}, "${p.name.replace(/"/g, '&quot;')}")'>
+                <button class="btn btn-sm btn-outline-danger" onclick="promptDeleteProduct(${p.id})">
                   <i class="fa-regular fa-trash-can"></i>
                 </button>
               </td>
@@ -273,7 +274,6 @@
 
       if (input.files && input.files[0]) {
         const file = input.files[0];
-        // Validate max 5MB
         if (file.size > 5 * 1024 * 1024) {
           showToast("Image size must be less than 5MB.", "error");
           input.value = '';
@@ -306,7 +306,10 @@
       productModalObj.show();
     }
 
-    function openEditProductModal(p) {
+    function openEditProductModal(id) {
+      const p = currentProductsList.find(x => x.id === id);
+      if (!p) return;
+
       document.getElementById('product-modal-title').textContent = 'Edit Product';
       document.getElementById('product-id-hidden').value = p.id;
       document.getElementById('prod-name-input').value = p.name;
@@ -357,14 +360,12 @@
         spinner.classList.remove('d-none');
 
         if (id) {
-          // Update product
           await apiRequest(`/products/${id}/`, {
             method: 'PUT',
             body: formData
           });
           showToast("Product updated successfully!", "success");
         } else {
-          // Create product
           await apiRequest('/products/', {
             method: 'POST',
             body: formData
@@ -382,9 +383,11 @@
       }
     }
 
-    function promptDeleteProduct(id, name) {
+    function promptDeleteProduct(id) {
+      const p = currentProductsList.find(x => x.id === id);
+      if (!p) return;
       productToDeleteId = id;
-      document.getElementById('delete-prod-name').textContent = name;
+      document.getElementById('delete-prod-name').textContent = p.name;
       deleteProductModalObj.show();
     }
 
