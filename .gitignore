@@ -44,3 +44,15 @@ media/products/*
 # OS
 .DS_Store
 Thumbs.db
+
+# Local database backups
+backend/db_backup.sqlite3
+backend/media_backup/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Virtual environment
+.venv/
+venv/
