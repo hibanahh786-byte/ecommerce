@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Catalog - ApexStore</title>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Google Fonts Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <i class="fa-solid fa-bag-shopping text-primary"></i>
+        <span>ApexStore</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="products.html">Products</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="my-orders.html">My Orders</a>
+          </li>
+        </ul>
+
+        <div id="navbar-auth-section"></div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Products Catalog Page Header -->
+  <div class="bg-white border-bottom py-4 mb-4">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <h2 class="fw-bold mb-1">Product Catalog</h2>
+          <p class="text-muted mb-0">Browse our wide range of premium products</p>
+        </div>
+        <div class="col-md-6 mt-3 mt-md-0">
+          <!-- Search input -->
+          <div class="input-group">
+            <span class="input-group-text bg-light border-end-0"><i class="fa-solid fa-magnifying-glass text-muted"></i></span>
+            <input type="text" id="catalog-search" class="form-control border-start-0 bg-light" placeholder="Search products by name..." oninput="handleSearchInput()">
+            <button class="btn btn-outline-secondary" type="button" onclick="clearSearch()"><i class="fa-solid fa-xmark"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main class="container mb-5">
+    <!-- Category Filter Strip & Controls -->
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
+      <div id="category-filter-pills" class="d-flex flex-wrap gap-2">
+        <!-- Rendered by JS -->
+        <span class="spinner-border spinner-border-sm text-primary"></span>
+      </div>
+
+      <div class="d-flex align-items-center gap-3">
+        <div class="form-check form-switch mb-0">
+          <input class="form-check-input" type="checkbox" id="in-stock-only-toggle" onchange="applyFilters()">
+          <label class="form-check-label small fw-semibold" for="in-stock-only-toggle">In Stock Only</label>
+        </div>
+        <select id="sort-select" class="form-select form-select-sm" style="width: 170px;" onchange="applySorting()">
+          <option value="default">Sort by: Default</option>
+          <option value="price-low">Price: Low to High</option>
+          <option value="price-high">Price: High to Low</option>
+          <option value="name">Name: A to Z</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Products Grid -->
+    <div id="catalog-products-grid" class="row g-4">
+      <div class="col-12 text-center py-5">
+        <div class="spinner-border text-primary" role="status"></div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Quick Buy Modal -->
+  <div class="modal fade" id="quickBuyModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow-lg">
+        <div class="modal-header border-bottom-0 pb-0">
+          <h5 class="modal-title fw-bold">Instant Checkout</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="d-flex align-items-center gap-3 mb-3 p-3 bg-light rounded-3">
+            <img id="modal-product-img" src="" alt="Product" style="width: 70px; height: 70px; object-fit: cover; border-radius: 8px;">
+            <div>
+              <h6 class="fw-bold mb-1" id="modal-product-name">Product Name</h6>
+              <div class="text-primary fw-bold" id="modal-product-price">₹0.00</div>
+              <small class="text-muted" id="modal-product-stock">Stock: 0</small>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Quantity</label>
+            <div class="input-group" style="max-width: 160px;">
+              <button class="btn btn-outline-secondary" type="button" onclick="adjustModalQty(-1)"><i class="fa-solid fa-minus"></i></button>
+              <input type="number" id="modal-order-qty" class="form-control text-center fw-bold" value="1" min="1" readonly>
+              <button class="btn btn-outline-secondary" type="button" onclick="adjustModalQty(1)"><i class="fa-solid fa-plus"></i></button>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between p-3 border rounded-3 mb-3">
+            <span class="fw-semibold">Total to Pay:</span>
+            <span class="fw-bold fs-5 text-primary" id="modal-order-total">₹0.00</span>
+          </div>
+
+          <div id="modal-auth-alert" class="alert alert-warning py-2 small d-none">
+            <i class="fa-solid fa-circle-exclamation me-1"></i> You must be <a href="login.html" class="alert-link">logged in</a> to complete your purchase.
+          </div>
+        </div>
+        <div class="modal-footer border-top-0 pt-0">
+          <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" id="modal-confirm-buy-btn" class="btn btn-primary px-4" onclick="executeQuickOrder()">
+            <span class="spinner-border spinner-border-sm me-2 d-none" id="buy-spinner"></span>
+            Confirm & Place Order
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Order Confirmation Modal -->
+  <div class="modal fade" id="orderSuccessModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow-lg text-center p-4">
+        <div class="mb-3">
+          <div class="d-inline-flex p-3 rounded-circle bg-success bg-opacity-10 text-success">
+            <i class="fa-solid fa-circle-check fa-3x"></i>
+          </div>
+        </div>
+        <h4 class="fw-bold mb-2">Order Confirmed!</h4>
+        <p class="text-muted small mb-4">Your order has been recorded and product stock was reduced in the database.</p>
+
+        <div class="p-3 bg-light rounded-3 text-start mb-4">
+          <div class="d-flex justify-content-between mb-2">
+            <span class="text-muted">Order ID:</span>
+            <span class="fw-bold" id="success-order-id">#0</span>
+          </div>
+          <div class="d-flex justify-content-between mb-2">
+            <span class="text-muted">Item:</span>
+            <span class="fw-semibold" id="success-product-name">-</span>
+          </div>
+          <div class="d-flex justify-content-between mb-2">
+            <span class="text-muted">Quantity:</span>
+            <span class="fw-semibold" id="success-qty">1</span>
+          </div>
+          <div class="d-flex justify-content-between mb-2">
+            <span class="text-muted">Total Amount:</span>
+            <span class="fw-bold text-primary" id="success-total">₹0.00</span>
+          </div>
+          <div class="d-flex justify-content-between">
+            <span class="text-muted">Status:</span>
+            <span class="badge bg-primary" id="success-status">Placed</span>
+          </div>
+        </div>
+
+        <div class="d-flex gap-2">
+          <button type="button" class="btn btn-outline-secondary w-50" data-bs-dismiss="modal">Keep Browsing</button>
+          <a href="my-orders.html" class="btn btn-primary w-50">View My Orders</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container text-center">
+      <div class="mb-3">
+        <span class="fw-bold fs-5 text-white">ApexStore</span>
+        <p class="small text-muted mb-0">Mini E-Commerce Management System</p>
+      </div>
+      <hr class="border-secondary opacity-25">
+      <small>&copy; 2026 ApexStore System. All rights reserved.</small>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    let allProducts = [];
+    let displayedProducts = [];
+    let categories = [];
+    let selectedCategoryId = null;
+    let searchDebounceTimeout = null;
+    let quickBuyModalObj = null;
+    let orderSuccessModalObj = null;
+    let activeModalProduct = null;
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      quickBuyModalObj = new bootstrap.Modal(document.getElementById('quickBuyModal'));
+      orderSuccessModalObj = new bootstrap.Modal(document.getElementById('orderSuccessModal'));
+
+      // Check URL query params for initial category filter (e.g. products.html?category=2)
+      const urlParams = new URLSearchParams(window.location.search);
+      const catParam = urlParams.get('category');
+      if (catParam) {
+        selectedCategoryId = catParam;
+      }
+
+      await loadCategories();
+      await fetchProducts();
+    });
+
+    async function loadCategories() {
+      try {
+        const res = await apiRequest('/categories/');
+        categories = res.data || [];
+        renderCategoryPills();
+      } catch (err) {
+        console.error("Failed to load categories:", err);
+      }
+    }
+
+    function renderCategoryPills() {
+      const container = document.getElementById('category-filter-pills');
+      const isAllActive = selectedCategoryId === null;
+
+      container.innerHTML = `
+        <button type="button" class="category-pill ${isAllActive ? 'active' : ''}" onclick="selectCategory(null)">
+          <i class="fa-solid fa-border-all"></i> All Products
+        </button>
+      ` + categories.map(c => {
+        const isActive = String(c.id) === String(selectedCategoryId);
+        return `
+          <button type="button" class="category-pill ${isActive ? 'active' : ''}" onclick="selectCategory('${c.id}')">
+            <i class="fa-solid fa-tag"></i> ${c.name}
+            <span class="badge ${isActive ? 'bg-light text-dark' : 'bg-secondary'} rounded-pill ms-1">${c.products_count}</span>
+          </button>
+        `;
+      }).join('');
+    }
+
+    function selectCategory(catId) {
+      selectedCategoryId = catId;
+      renderCategoryPills();
+      fetchProducts();
+    }
+
+    function handleSearchInput() {
+      clearTimeout(searchDebounceTimeout);
+      searchDebounceTimeout = setTimeout(() => {
+        fetchProducts();
+      }, 300);
+    }
+
+    function clearSearch() {
+      document.getElementById('catalog-search').value = '';
+      fetchProducts();
+    }
+
+    async function fetchProducts() {
+      const grid = document.getElementById('catalog-products-grid');
+      const searchVal = document.getElementById('catalog-search').value.trim();
+      const inStockOnly = document.getElementById('in-stock-only-toggle').checked;
+
+      let query = [];
+      if (selectedCategoryId) query.push(`category=${selectedCategoryId}`);
+      if (searchVal) query.push(`search=${encodeURIComponent(searchVal)}`);
+      if (inStockOnly) query.push(`in_stock=true`);
+
+      const endpoint = `/products/${query.length > 0 ? '?' + query.join('&') : ''}`;
+
+      try {
+        grid.innerHTML = '<div class="col-12 text-center py-5"><div class="spinner-border text-primary"></div></div>';
+        const res = await apiRequest(endpoint);
+        allProducts = res.data || [];
+        applySorting();
+      } catch (err) {
+        grid.innerHTML = `<div class="col-12 text-center text-danger py-4">Failed to fetch products: ${err.message}</div>`;
+      }
+    }
+
+    function applySorting() {
+      const sortType = document.getElementById('sort-select').value;
+      displayedProducts = [...allProducts];
+
+      if (sortType === 'price-low') {
+        displayedProducts.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
+      } else if (sortType === 'price-high') {
+        displayedProducts.sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
+      } else if (sortType === 'name') {
+        displayedProducts.sort((a, b) => a.name.localeCompare(b.name));
+      }
+
+      renderProductsGrid();
+    }
+
+    function applyFilters() {
+      fetchProducts();
+    }
+
+    function renderProductsGrid() {
+      const grid = document.getElementById('catalog-products-grid');
+
+      if (displayedProducts.length === 0) {
+        grid.innerHTML = `
+          <div class="col-12">
+            <div class="empty-state">
+              <i class="fa-solid fa-magnifying-glass empty-state-icon"></i>
+              <h5>No Products Found</h5>
+              <p class="text-muted">No products match your current search or category filter.</p>
+              <button class="btn btn-outline-primary btn-sm mt-2" onclick="clearFilters()">Reset Filters</button>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = displayedProducts.map(p => {
+        const imgUrl = p.image_url || API_CONFIG.MEDIA_FALLBACK;
+        const isOutOfStock = p.stock <= 0;
+        return `
+          <div class="col-sm-6 col-md-4 col-lg-3">
+            <div class="product-card">
+              <div class="product-card-img-wrapper">
+                <span class="product-badge-category">${p.category ? p.category.name : 'General'}</span>
+                <span class="product-badge-stock">
+                  ${isOutOfStock 
+                    ? '<span class="badge bg-danger">Out of Stock</span>' 
+                    : `<span class="badge bg-success">In Stock: ${p.stock}</span>`}
+                </span>
+                <img src="${imgUrl}" alt="${p.name}" onerror="this.src='${API_CONFIG.MEDIA_FALLBACK}'">
+              </div>
+              <div class="product-card-body">
+                <h5 class="product-title" title="${p.name}">${p.name}</h5>
+                <div class="product-price">${formatPrice(p.price)}</div>
+                <div class="product-card-footer">
+                  <a href="product-details.html?id=${p.id}" class="btn btn-outline-primary btn-sm flex-fill">
+                    <i class="fa-regular fa-eye me-1"></i> Details
+                  </a>
+                  <button class="btn btn-primary btn-sm flex-fill" ${isOutOfStock ? 'disabled' : ''} onclick='openQuickBuy(${JSON.stringify(p)})'>
+                    <i class="fa-solid fa-cart-shopping me-1"></i> Buy
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function clearFilters() {
+      selectedCategoryId = null;
+      document.getElementById('catalog-search').value = '';
+      document.getElementById('in-stock-only-toggle').checked = false;
+      renderCategoryPills();
+      fetchProducts();
+    }
+
+    function openQuickBuy(product) {
+      activeModalProduct = product;
+      document.getElementById('modal-product-name').textContent = product.name;
+      document.getElementById('modal-product-price').textContent = formatPrice(product.price);
+      document.getElementById('modal-product-stock').textContent = `Available Stock: ${product.stock}`;
+      document.getElementById('modal-product-img').src = product.image_url || API_CONFIG.MEDIA_FALLBACK;
+      document.getElementById('modal-order-qty').value = 1;
+      updateModalTotal();
+
+      const authAlert = document.getElementById('modal-auth-alert');
+      if (!Auth.isAuthenticated()) {
+        authAlert.classList.remove('d-none');
+        document.getElementById('modal-confirm-buy-btn').disabled = true;
+      } else {
+        authAlert.classList.add('d-none');
+        document.getElementById('modal-confirm-buy-btn').disabled = false;
+      }
+
+      quickBuyModalObj.show();
+    }
+
+    function adjustModalQty(delta) {
+      if (!activeModalProduct) return;
+      const input = document.getElementById('modal-order-qty');
+      let val = parseInt(input.value) || 1;
+      val += delta;
+      if (val < 1) val = 1;
+      if (val > activeModalProduct.stock) {
+        val = activeModalProduct.stock;
+        showToast(`Cannot order more than available stock (${activeModalProduct.stock}).`, "warning");
+      }
+      input.value = val;
+      updateModalTotal();
+    }
+
+    function updateModalTotal() {
+      if (!activeModalProduct) return;
+      const qty = parseInt(document.getElementById('modal-order-qty').value) || 1;
+      const total = activeModalProduct.price * qty;
+      document.getElementById('modal-order-total').textContent = formatPrice(total);
+    }
+
+    async function executeQuickOrder() {
+      if (!Auth.requireAuth()) return;
+      if (!activeModalProduct) return;
+
+      const qty = parseInt(document.getElementById('modal-order-qty').value) || 1;
+      const spinner = document.getElementById('buy-spinner');
+      const btn = document.getElementById('modal-confirm-buy-btn');
+
+      try {
+        btn.disabled = true;
+        spinner.classList.remove('d-none');
+
+        const res = await apiRequest('/orders/', {
+          method: 'POST',
+          body: {
+            product_id: activeModalProduct.id,
+            quantity: qty
+          }
+        });
+
+        quickBuyModalObj.hide();
+
+        const order = res.data.order;
+        document.getElementById('success-order-id').textContent = `#${order.id}`;
+        document.getElementById('success-product-name').textContent = activeModalProduct.name;
+        document.getElementById('success-qty').textContent = qty;
+        document.getElementById('success-total').textContent = formatPrice(order.total_amount);
+        document.getElementById('success-status').textContent = order.status;
+
+        orderSuccessModalObj.show();
+        showToast("Order placed successfully!", "success");
+
+        // Refresh products to show updated stock
+        fetchProducts();
+      } catch (err) {
+        showToast(err.message, "error");
+      } finally {
+        btn.disabled = false;
+        spinner.classList.add('d-none');
+      }
+    }
+  </script>
+</body>
+</html>

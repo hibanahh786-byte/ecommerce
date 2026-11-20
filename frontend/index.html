@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ApexStore - Modern Mini E-Commerce</title>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Google Fonts Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <i class="fa-solid fa-bag-shopping text-primary"></i>
+        <span>ApexStore</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+          <li class="nav-item">
+            <a class="nav-link active" href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="products.html">Products</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="products.html" id="nav-categories-link">Categories</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="my-orders.html">My Orders</a>
+          </li>
+        </ul>
+
+        <!-- Dynamic Auth Section -->
+        <div id="navbar-auth-section"></div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container position-relative" style="z-index: 2;">
+      <div class="row align-items-center py-4">
+        <div class="col-lg-7">
+          <span class="badge bg-primary px-3 py-2 rounded-pill mb-3 text-uppercase fw-semibold" style="letter-spacing: 0.05em;">Premium Shopping Experience</span>
+          <h1 class="display-4 fw-bold mb-3">Discover Quality Products Curated For You</h1>
+          <p class="lead text-light mb-4 opacity-90" style="max-width: 580px;">
+            Shop top-tier electronics, fashion, lifestyle, and home essentials with verified stock, real-time inventory tracking, and seamless instant ordering.
+          </p>
+          <div class="d-flex flex-wrap gap-3">
+            <a href="products.html" class="btn btn-primary btn-lg shadow">
+              <i class="fa-solid fa-bag-shopping me-2"></i> Shop Now
+            </a>
+            <a href="#categories-section" class="btn btn-outline-light btn-lg">
+              <i class="fa-solid fa-layer-group me-2"></i> Explore Categories
+            </a>
+          </div>
+        </div>
+        <div class="col-lg-5 d-none d-lg-block text-center">
+          <div class="p-4 rounded-4" style="background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.1);">
+            <i class="fa-solid fa-shield-heart fa-4x text-warning mb-3"></i>
+            <h4 class="text-white fw-bold mb-2">Verified Real-Time Stock</h4>
+            <p class="text-light small mb-0 opacity-75">Transactions use atomic database locks to ensure you never face out-of-stock cancellations after purchase.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Strip -->
+  <section class="py-4 bg-white border-bottom">
+    <div class="container">
+      <div class="row g-4 text-center">
+        <div class="col-md-4">
+          <div class="d-flex align-items-center justify-content-center gap-3">
+            <div class="p-3 bg-light rounded-circle text-primary">
+              <i class="fa-solid fa-truck-fast fa-2x"></i>
+            </div>
+            <div class="text-start">
+              <h6 class="fw-bold mb-0">Fast Shipping</h6>
+              <small class="text-muted">Swift and reliable processing</small>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="d-flex align-items-center justify-content-center gap-3">
+            <div class="p-3 bg-light rounded-circle text-success">
+              <i class="fa-solid fa-lock fa-2x"></i>
+            </div>
+            <div class="text-start">
+              <h6 class="fw-bold mb-0">Secure JWT Auth</h6>
+              <small class="text-muted">Role-based security & encryption</small>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="d-flex align-items-center justify-content-center gap-3">
+            <div class="p-3 bg-light rounded-circle text-warning">
+              <i class="fa-solid fa-rotate-left fa-2x"></i>
+            </div>
+            <div class="text-start">
+              <h6 class="fw-bold mb-0">Live Stock Protection</h6>
+              <small class="text-muted">Atomic server concurrency checks</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories Section -->
+  <section id="categories-section" class="py-5">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-end mb-4">
+        <div>
+          <h2 class="fw-bold mb-1">Browse by Category</h2>
+          <p class="text-muted mb-0">Find exactly what you need sorted into clean collections</p>
+        </div>
+        <a href="products.html" class="text-primary fw-semibold text-decoration-none">
+          All Products <i class="fa-solid fa-arrow-right ms-1"></i>
+        </a>
+      </div>
+
+      <div id="home-categories-list" class="d-flex flex-wrap gap-2 mb-4">
+        <div class="spinner-border spinner-border-sm text-primary" role="status"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Products Section -->
+  <section class="py-5 bg-light">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-end mb-4">
+        <div>
+          <h2 class="fw-bold mb-1">Featured Products</h2>
+          <p class="text-muted mb-0">High-demand items currently available in inventory</p>
+        </div>
+        <a href="products.html" class="btn btn-outline-primary btn-sm">
+          View All Catalog <i class="fa-solid fa-chevron-right ms-1"></i>
+        </a>
+      </div>
+
+      <!-- Products Grid -->
+      <div id="featured-products-grid" class="row g-4">
+        <!-- Rendered via JS -->
+        <div class="col-12 text-center py-5">
+          <div class="spinner-border text-primary" role="status"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Buy Modal -->
+  <div class="modal fade" id="quickBuyModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow-lg">
+        <div class="modal-header border-bottom-0 pb-0">
+          <h5 class="modal-title fw-bold">Instant Checkout</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="d-flex align-items-center gap-3 mb-3 p-3 bg-light rounded-3">
+            <img id="modal-product-img" src="" alt="Product" style="width: 70px; height: 70px; object-fit: cover; border-radius: 8px;">
+            <div>
+              <h6 class="fw-bold mb-1" id="modal-product-name">Product Name</h6>
+              <div class="text-primary fw-bold" id="modal-product-price">₹0.00</div>
+              <small class="text-muted" id="modal-product-stock">Stock: 0</small>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Quantity</label>
+            <div class="input-group" style="max-width: 160px;">
+              <button class="btn btn-outline-secondary" type="button" onclick="adjustModalQty(-1)"><i class="fa-solid fa-minus"></i></button>
+              <input type="number" id="modal-order-qty" class="form-control text-center fw-bold" value="1" min="1" readonly>
+              <button class="btn btn-outline-secondary" type="button" onclick="adjustModalQty(1)"><i class="fa-solid fa-plus"></i></button>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between p-3 border rounded-3 mb-3">
+            <span class="fw-semibold">Estimated Total:</span>
+            <span class="fw-bold fs-5 text-primary" id="modal-order-total">₹0.00</span>
+          </div>
+
+          <div id="modal-auth-alert" class="alert alert-warning py-2 small d-none">
+            <i class="fa-solid fa-circle-exclamation me-1"></i> You must be <a href="login.html" class="alert-link">logged in</a> to complete your purchase.
+          </div>
+        </div>
+        <div class="modal-footer border-top-0 pt-0">
+          <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" id="modal-confirm-buy-btn" class="btn btn-primary px-4" onclick="executeQuickOrder()">
+            <span class="spinner-border spinner-border-sm me-2 d-none" id="buy-spinner"></span>
+            Confirm & Place Order
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Order Confirmation Modal -->
+  <div class="modal fade" id="orderSuccessModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow-lg text-center p-4">
+        <div class="mb-3">
+          <div class="d-inline-flex p-3 rounded-circle bg-success bg-opacity-10 text-success">
+            <i class="fa-solid fa-circle-check fa-3x"></i>
+          </div>
+        </div>
+        <h4 class="fw-bold mb-2">Order Placed Successfully!</h4>
+        <p class="text-muted small mb-4">Your order has been recorded in the database and stock has been updated.</p>
+
+        <div class="p-3 bg-light rounded-3 text-start mb-4">
+          <div class="d-flex justify-content-between mb-2">
+            <span class="text-muted">Order ID:</span>
+            <span class="fw-bold" id="success-order-id">#0</span>
+          </div>
+          <div class="d-flex justify-content-between mb-2">
+            <span class="text-muted">Purchased Item:</span>
+            <span class="fw-semibold" id="success-product-name">-</span>
+          </div>
+          <div class="d-flex justify-content-between mb-2">
+            <span class="text-muted">Quantity:</span>
+            <span class="fw-semibold" id="success-qty">1</span>
+          </div>
+          <div class="d-flex justify-content-between mb-2">
+            <span class="text-muted">Total Amount:</span>
+            <span class="fw-bold text-primary" id="success-total">₹0.00</span>
+          </div>
+          <div class="d-flex justify-content-between">
+            <span class="text-muted">Order Status:</span>
+            <span class="badge bg-primary" id="success-status">Placed</span>
+          </div>
+        </div>
+
+        <div class="d-flex gap-2">
+          <button type="button" class="btn btn-outline-secondary w-50" data-bs-dismiss="modal">Continue Shopping</button>
+          <a href="my-orders.html" class="btn btn-primary w-50">View My Orders</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container text-center">
+      <div class="mb-3">
+        <span class="fw-bold fs-5 text-white">ApexStore</span>
+        <p class="small text-muted mb-0">Mini E-Commerce Management System built with Django, DRF, Simple JWT & Bootstrap 5</p>
+      </div>
+      <hr class="border-secondary opacity-25">
+      <small>&copy; 2026 ApexStore System. All rights reserved.</small>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    let activeModalProduct = null;
+    let quickBuyModalObj = null;
+    let orderSuccessModalObj = null;
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      quickBuyModalObj = new bootstrap.Modal(document.getElementById('quickBuyModal'));
+      orderSuccessModalObj = new bootstrap.Modal(document.getElementById('orderSuccessModal'));
+      loadCategories();
+      loadFeaturedProducts();
+    });
+
+    async function loadCategories() {
+      const container = document.getElementById('home-categories-list');
+      try {
+        const res = await apiRequest('/categories/');
+        const categories = res.data || [];
+        if (categories.length === 0) {
+          container.innerHTML = '<span class="text-muted">No categories available yet.</span>';
+          return;
+        }
+
+        container.innerHTML = `
+          <a href="products.html" class="category-pill active">
+            <i class="fa-solid fa-border-all"></i> All Categories
+          </a>
+        ` + categories.map(c => `
+          <a href="products.html?category=${c.id}" class="category-pill">
+            <i class="fa-solid fa-tag"></i> ${c.name}
+            <span class="badge bg-light text-dark rounded-pill ms-1">${c.products_count}</span>
+          </a>
+        `).join('');
+      } catch (err) {
+        container.innerHTML = `<span class="text-danger small"><i class="fa-solid fa-triangle-exclamation"></i> Error loading categories: ${err.message}</span>`;
+      }
+    }
+
+    async function loadFeaturedProducts() {
+      const grid = document.getElementById('featured-products-grid');
+      try {
+        const res = await apiRequest('/products/');
+        const products = (res.data || []).slice(0, 6);
+
+        if (products.length === 0) {
+          grid.innerHTML = `
+            <div class="col-12">
+              <div class="empty-state">
+                <i class="fa-solid fa-box-open empty-state-icon"></i>
+                <h5>No Products Available</h5>
+                <p class="text-muted">Products added by the administrator will show up here.</p>
+              </div>
+            </div>
+          `;
+          return;
+        }
+
+        grid.innerHTML = products.map(p => {
+          const imgUrl = p.image_url || API_CONFIG.MEDIA_FALLBACK;
+          const isOutOfStock = p.stock <= 0;
+          return `
+            <div class="col-md-6 col-lg-4">
+              <div class="product-card">
+                <div class="product-card-img-wrapper">
+                  <span class="product-badge-category">${p.category ? p.category.name : 'General'}</span>
+                  <span class="product-badge-stock">
+                    ${isOutOfStock 
+                      ? '<span class="badge bg-danger">Out of Stock</span>' 
+                      : `<span class="badge bg-success">In Stock: ${p.stock}</span>`}
+                  </span>
+                  <img src="${imgUrl}" alt="${p.name}" onerror="this.src='${API_CONFIG.MEDIA_FALLBACK}'">
+                </div>
+                <div class="product-card-body">
+                  <h5 class="product-title" title="${p.name}">${p.name}</h5>
+                  <div class="product-price">${formatPrice(p.price)}</div>
+                  <div class="product-card-footer">
+                    <a href="product-details.html?id=${p.id}" class="btn btn-outline-primary btn-sm flex-fill">
+                      <i class="fa-regular fa-eye me-1"></i> Details
+                    </a>
+                    <button class="btn btn-primary btn-sm flex-fill" ${isOutOfStock ? 'disabled' : ''} onclick='openQuickBuy(${JSON.stringify(p)})'>
+                      <i class="fa-solid fa-cart-shopping me-1"></i> Buy Now
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+      } catch (err) {
+        grid.innerHTML = `<div class="col-12 text-center text-danger py-4">Failed to load products: ${err.message}</div>`;
+      }
+    }
+
+    function openQuickBuy(product) {
+      activeModalProduct = product;
+      document.getElementById('modal-product-name').textContent = product.name;
+      document.getElementById('modal-product-price').textContent = formatPrice(product.price);
+      document.getElementById('modal-product-stock').textContent = `Available Stock: ${product.stock}`;
+      document.getElementById('modal-product-img').src = product.image_url || API_CONFIG.MEDIA_FALLBACK;
+      document.getElementById('modal-order-qty').value = 1;
+      updateModalTotal();
+
+      const authAlert = document.getElementById('modal-auth-alert');
+      if (!Auth.isAuthenticated()) {
+        authAlert.classList.remove('d-none');
+        document.getElementById('modal-confirm-buy-btn').disabled = true;
+      } else {
+        authAlert.classList.add('d-none');
+        document.getElementById('modal-confirm-buy-btn').disabled = false;
+      }
+
+      quickBuyModalObj.show();
+    }
+
+    function adjustModalQty(delta) {
+      if (!activeModalProduct) return;
+      const input = document.getElementById('modal-order-qty');
+      let val = parseInt(input.value) || 1;
+      val += delta;
+      if (val < 1) val = 1;
+      if (val > activeModalProduct.stock) {
+        val = activeModalProduct.stock;
+        showToast(`Cannot order more than available stock (${activeModalProduct.stock}).`, "warning");
+      }
+      input.value = val;
+      updateModalTotal();
+    }
+
+    function updateModalTotal() {
+      if (!activeModalProduct) return;
+      const qty = parseInt(document.getElementById('modal-order-qty').value) || 1;
+      const total = activeModalProduct.price * qty;
+      document.getElementById('modal-order-total').textContent = formatPrice(total);
+    }
+
+    async function executeQuickOrder() {
+      if (!Auth.requireAuth()) return;
+      if (!activeModalProduct) return;
+
+      const qty = parseInt(document.getElementById('modal-order-qty').value) || 1;
+      const spinner = document.getElementById('buy-spinner');
+      const btn = document.getElementById('modal-confirm-buy-btn');
+
+      try {
+        btn.disabled = true;
+        spinner.classList.remove('d-none');
+
+        const res = await apiRequest('/orders/', {
+          method: 'POST',
+          body: {
+            product_id: activeModalProduct.id,
+            quantity: qty
+          }
+        });
+
+        quickBuyModalObj.hide();
+
+        // Populate success modal
+        const order = res.data.order;
+        document.getElementById('success-order-id').textContent = `#${order.id}`;
+        document.getElementById('success-product-name').textContent = activeModalProduct.name;
+        document.getElementById('success-qty').textContent = qty;
+        document.getElementById('success-total').textContent = formatPrice(order.total_amount);
+        document.getElementById('success-status').textContent = order.status;
+
+        orderSuccessModalObj.show();
+        showToast("Order placed successfully!", "success");
+
+        // Reload featured products to reflect decremented stock
+        loadFeaturedProducts();
+      } catch (err) {
+        showToast(err.message, "error");
+      } finally {
+        btn.disabled = false;
+        spinner.classList.add('d-none');
+      }
+    }
+  </script>
+</body>
+</html>
