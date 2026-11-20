@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ecommerce Store - Modern Fashion & Lifestyle</title>
+  <title>Ecommerce Store - Stylish Fashion & Premium Essentials</title>
   <!-- Bootstrap 5 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Font Awesome -->
+  <!-- Font Awesome 6 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <!-- Google Fonts Inter & Outfit -->
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Google Fonts: Plus Jakarta Sans & Outfit -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
   <!-- Custom CSS -->
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -19,10 +19,10 @@
   <nav class="navbar navbar-expand-lg sticky-top">
     <div class="container">
       <a class="navbar-brand" href="index.html">
-        <i class="fa-solid fa-shirt text-primary"></i>
+        <i class="fa-solid fa-wand-magic-sparkles"></i>
         <span>Ecommerce Store</span>
       </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
         <span class="navbar-toggler-icon"></span>
       </button>
 
@@ -35,7 +35,10 @@
             <a class="nav-link" href="products.html">Shop</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="products.html" id="nav-categories-link">Categories</a>
+            <a class="nav-link" href="#categories-section">Categories</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#featured-section">Trending</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="my-orders.html">My Orders</a>
@@ -48,29 +51,30 @@
     </div>
   </nav>
 
-  <!-- Hero Section Matching Image Reference -->
+  <!-- Hero Section (Matching Design Reference) -->
   <section class="hero-wrapper">
     <div class="container">
       <div class="hero-banner">
         <div class="row align-items-center g-5">
           <div class="col-lg-7">
-            <span class="hero-badge-offer">
-              <i class="fa-solid fa-tag me-1"></i> Exclusive Offer • 20% off This Week
-            </span>
+            <div class="hero-badge-offer">
+              <i class="fa-solid fa-sparkles me-1 text-warning"></i> Exclusive Offer • 20% off This Week
+            </div>
             <h1 class="hero-title">
               Stylish<br>Female Clothes
             </h1>
             <p class="hero-subtitle">
-              Made from soft, durable, organic premium cotton. Elevate your wardrobe with verified in-stock seasonal essentials.
+              Made from soft, durable, organic Supima cotton. Elevate your daily wardrobe with verified in-stock fashion essentials.
             </p>
 
             <!-- Pill Search Capsule -->
             <form action="products.html" method="GET" class="hero-search-capsule" onsubmit="handleHeroSearch(event)">
-              <input type="text" id="hero-search-input" placeholder="Search clothes, accessories..." required>
+              <i class="fa-solid fa-magnifying-glass text-muted me-2"></i>
+              <input type="text" id="hero-search-input" placeholder="Search dresses, t-shirts, jackets..." required>
               <button type="submit">Shop Now</button>
             </form>
 
-            <!-- Social Proof Rating Badge -->
+            <!-- Social Proof Rating Card -->
             <div class="hero-customers-badge">
               <div class="avatar-stack">
                 <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" alt="Customer 1">
@@ -85,7 +89,7 @@
                   <i class="fa-solid fa-star"></i>
                   <i class="fa-solid fa-star"></i>
                   <i class="fa-solid fa-star"></i>
-                  <span class="text-white-50 ms-1">(4.9/5)</span>
+                  <span class="text-white-50 ms-1 fw-bold">(4.9/5)</span>
                 </div>
               </div>
             </div>
@@ -95,7 +99,11 @@
           <div class="col-lg-5 text-center">
             <div class="hero-visual-frame">
               <div class="hero-circle-bg"></div>
-              <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&auto=format&fit=crop&q=80" alt="Stylish Female Clothes" class="hero-model-img">
+              <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&auto=format&fit=crop&q=80" alt="Stylish Fashion Model" class="hero-model-img">
+              <div class="hero-floating-tag">
+                <i class="fa-solid fa-fire text-danger"></i>
+                <span>Hot Picks • In Stock</span>
+              </div>
             </div>
           </div>
         </div>
@@ -103,12 +111,12 @@
     </div>
   </section>
 
-  <!-- Premium Shades / Collections Strip -->
+  <!-- Curated Selections / Premium Shades Strip -->
   <section class="collections-strip">
     <div class="container">
       <div class="text-center mb-4">
-        <span class="text-uppercase fw-bold text-primary small" style="letter-spacing: 0.1em;">Curated Selections</span>
-        <h3 class="fw-bold text-dark mt-1">Premium Shades & Styles</h3>
+        <span class="text-uppercase fw-bold text-primary small" style="letter-spacing: 0.12em;">Premium Shades</span>
+        <h3 class="fw-bold text-dark mt-1">Trending Seasonal Collections</h3>
       </div>
       <div class="row g-3">
         <div class="col-6 col-lg-3">
@@ -140,9 +148,9 @@
         </div>
         <div class="col-6 col-lg-3">
           <a href="products.html" class="collection-card">
-            <img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=150&auto=format&fit=crop&q=80" class="collection-card-img" alt="Modern Minimal">
+            <img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=150&auto=format&fit=crop&q=80" class="collection-card-img" alt="Modern Luxe">
             <div>
-              <div class="fw-bold">Modern Minimal</div>
+              <div class="fw-bold">Modern Luxe</div>
               <small class="text-muted">Explore Collection &rarr;</small>
             </div>
           </a>
@@ -151,35 +159,35 @@
     </div>
   </section>
 
-  <!-- Categories Section with Icon Pills -->
+  <!-- Category Section (Matching the Reference UI) -->
   <section id="categories-section" class="py-4">
     <div class="container">
-      <div class="d-flex justify-content-between align-items-end mb-4">
-        <div>
-          <span class="text-uppercase fw-bold text-primary small" style="letter-spacing: 0.1em;">Categories</span>
-          <h3 class="fw-bold text-dark mt-1 mb-0">Browse by Department</h3>
+      <div class="text-center mb-4">
+        <span class="text-uppercase fw-bold text-primary small" style="letter-spacing: 0.12em;">Category</span>
+        <div class="d-flex align-items-center justify-content-center gap-2 mt-1">
+          <div style="width: 40px; height: 1.5px; background: var(--border-color);"></div>
+          <h3 class="fw-bold text-dark mb-0">Shop by Department</h3>
+          <div style="width: 40px; height: 1.5px; background: var(--border-color);"></div>
         </div>
-        <a href="products.html" class="text-primary fw-semibold text-decoration-none">
-          All Products <i class="fa-solid fa-arrow-right ms-1"></i>
-        </a>
       </div>
 
-      <div id="home-categories-list" class="d-flex flex-wrap gap-2 mb-4">
+      <!-- Icon-Based Category Row -->
+      <div class="category-icons-row" id="home-categories-list">
         <div class="spinner-border spinner-border-sm text-primary" role="status"></div>
       </div>
     </div>
   </section>
 
   <!-- Featured Products Section -->
-  <section class="py-5" style="background-color: #fffaf9;">
+  <section id="featured-section" class="py-5" style="background-color: #fff9f8;">
     <div class="container">
       <div class="d-flex justify-content-between align-items-end mb-4">
         <div>
-          <span class="text-uppercase fw-bold text-primary small" style="letter-spacing: 0.1em;">Trending Now</span>
+          <span class="text-uppercase fw-bold text-primary small" style="letter-spacing: 0.12em;">Curated Picks</span>
           <h3 class="fw-bold text-dark mt-1 mb-0">Featured Products</h3>
         </div>
         <a href="products.html" class="btn btn-outline-primary btn-sm">
-          View All Catalog <i class="fa-solid fa-chevron-right ms-1"></i>
+          View All Catalog <i class="fa-solid fa-arrow-right ms-1"></i>
         </a>
       </div>
 
@@ -187,6 +195,28 @@
       <div id="featured-products-grid" class="row g-4">
         <div class="col-12 text-center py-5">
           <div class="spinner-border text-primary" role="status"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIP Promo Banner Strip -->
+  <section class="py-5">
+    <div class="container">
+      <div class="promo-strip-banner">
+        <div class="row align-items-center">
+          <div class="col-lg-8">
+            <span class="badge bg-danger rounded-pill px-3 py-2 mb-3 fw-bold">VIP MEMBERSHIP PERK</span>
+            <h2 class="display-6 fw-bold mb-2">Get 15% Off Your First Purchase</h2>
+            <p class="lead opacity-90 mb-0" style="font-size: 1.05rem;">
+              Sign up today to enjoy verified stock notifications, priority shipping, and instant order tracking.
+            </p>
+          </div>
+          <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
+            <a href="register.html" class="btn btn-light btn-lg px-4 fw-bold shadow" style="border-radius: var(--radius-pill); color: var(--primary);">
+              Create Free Account &rarr;
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -202,7 +232,7 @@
         </div>
         <div class="modal-body">
           <div class="d-flex align-items-center gap-3 mb-3 p-3 bg-light rounded-4">
-            <img id="modal-product-img" src="" alt="Product" style="width: 70px; height: 70px; object-fit: cover; border-radius: 12px;">
+            <img id="modal-product-img" src="" alt="Product" style="width: 72px; height: 72px; object-fit: cover; border-radius: 14px;">
             <div>
               <h6 class="fw-bold mb-1" id="modal-product-name">Product Name</h6>
               <div class="text-primary fw-bold fs-5" id="modal-product-price">₹0.00</div>
@@ -284,13 +314,46 @@
 
   <!-- Footer -->
   <footer>
-    <div class="container text-center">
-      <div class="mb-3">
-        <span class="fw-bold fs-5 text-white">Ecommerce Store</span>
-        <p class="small text-muted mb-0">Mini E-Commerce Management System built with Django, DRF, Simple JWT & Bootstrap 5</p>
+    <div class="container">
+      <div class="row g-4 mb-4">
+        <div class="col-lg-5">
+          <div class="d-flex align-items-center gap-2 mb-3">
+            <i class="fa-solid fa-wand-magic-sparkles text-primary fa-lg"></i>
+            <span class="fw-bold fs-5 text-white">Ecommerce Store</span>
+          </div>
+          <p class="small text-muted mb-3" style="max-width: 380px;">
+            A modern, full-stack Mini E-Commerce System with atomic inventory locking, server-calculated totals, and secure JWT authentication.
+          </p>
+          <div class="d-flex gap-3 text-white">
+            <a href="#" class="text-muted fs-5"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" class="text-muted fs-5"><i class="fa-brands fa-facebook"></i></a>
+            <a href="#" class="text-muted fs-5"><i class="fa-brands fa-pinterest"></i></a>
+          </div>
+        </div>
+        <div class="col-6 col-lg-3">
+          <h6 class="text-white fw-bold mb-3">Quick Navigation</h6>
+          <ul class="list-unstyled small mb-0 d-flex flex-column gap-2">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="products.html">Product Catalog</a></li>
+            <li><a href="my-orders.html">Order History</a></li>
+            <li><a href="login.html">Sign In</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-lg-4">
+          <h6 class="text-white fw-bold mb-3">Secure Commerce</h6>
+          <p class="small text-muted mb-2">
+            Powered by Django REST Framework, Simple JWT, and MySQL database concurrency control.
+          </p>
+          <div class="d-flex gap-2 mt-3">
+            <span class="badge bg-dark border text-light"><i class="fa-solid fa-lock text-success me-1"></i> SSL 256-Bit</span>
+            <span class="badge bg-dark border text-light"><i class="fa-solid fa-bolt text-warning me-1"></i> Instant Dispatch</span>
+          </div>
+        </div>
       </div>
       <hr class="border-secondary opacity-25">
-      <small>&copy; 2026 Ecommerce Store System. All rights reserved.</small>
+      <div class="text-center small text-muted">
+        &copy; 2026 Ecommerce Store System. All rights reserved.
+      </div>
     </div>
   </footer>
 
@@ -321,28 +384,39 @@
       try {
         const res = await apiRequest('/categories/');
         const categories = res.data || [];
-        if (categories.length === 0) {
-          container.innerHTML = '<span class="text-muted">No categories available yet.</span>';
-          return;
-        }
 
-        const icons = {
-          'Electronics': 'fa-laptop',
+        const categoryIcons = {
+          'Electronics': 'fa-mobile-screen',
           'Fashion & Apparel': 'fa-shirt',
           'Home & Living': 'fa-couch',
-          'Books & Stationery': 'fa-book-open'
+          'Books & Stationery': 'fa-book-open',
+          'Dresses': 'fa-vest',
+          'T-shirts': 'fa-shirt',
+          'Denim': 'fa-socks',
+          'Jackets': 'fa-vest-patches',
+          'Coats': 'fa-snowflake',
+          'Shoes': 'fa-shoe-prints'
         };
 
-        container.innerHTML = `
-          <a href="products.html" class="category-pill active">
-            <i class="fa-solid fa-border-all"></i> All Products
+        let html = `
+          <a href="products.html" class="category-icon-item active">
+            <div class="category-icon-circle">
+              <i class="fa-solid fa-border-all"></i>
+            </div>
+            <span class="category-icon-label">All</span>
           </a>
-        ` + categories.map(c => `
-          <a href="products.html?category=${c.id}" class="category-pill">
-            <i class="fa-solid ${icons[c.name] || 'fa-tag'}"></i> ${c.name}
-            <span class="badge bg-light text-dark rounded-pill ms-1">${c.products_count}</span>
+        `;
+
+        html += categories.map(c => `
+          <a href="products.html?category=${c.id}" class="category-icon-item">
+            <div class="category-icon-circle">
+              <i class="fa-solid ${categoryIcons[c.name] || 'fa-tag'}"></i>
+            </div>
+            <span class="category-icon-label">${c.name}</span>
           </a>
         `).join('');
+
+        container.innerHTML = html;
       } catch (err) {
         container.innerHTML = `<span class="text-danger small"><i class="fa-solid fa-triangle-exclamation"></i> Error loading categories: ${err.message}</span>`;
       }
@@ -371,7 +445,7 @@
           const imgUrl = p.image_url || API_CONFIG.MEDIA_FALLBACK;
           const isOutOfStock = p.stock <= 0;
           return `
-            <div class="col-md-6 col-lg-4">
+            <div class="col-sm-6 col-md-4 col-lg-4">
               <div class="product-card">
                 <div class="product-card-img-wrapper">
                   <span class="product-badge-category">${p.category ? p.category.name : 'General'}</span>
@@ -384,6 +458,7 @@
                 </div>
                 <div class="product-card-body">
                   <h5 class="product-title" title="${p.name}">${p.name}</h5>
+                  <div class="product-material-sub">Verified Organic Material • Direct Dispatch</div>
                   <div class="product-price">${formatPrice(p.price)}</div>
                   <div class="product-card-footer">
                     <a href="product-details.html?id=${p.id}" class="btn btn-outline-primary btn-sm flex-fill">
